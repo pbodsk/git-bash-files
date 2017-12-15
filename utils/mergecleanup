@@ -1,0 +1,15 @@
+#!/bin/sh
+
+find . -name "*.orig"
+COUNT=$(find . -name "*.orig" | wc -l)
+if (( $COUNT > 0 ))
+then
+  read -p "These files will be deleted, continue [y/n]? " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    find . -name "*.orig" -print0 | xargs -0 /bin/rm
+    fi
+else
+  echo "No .orig files found"
+fi
